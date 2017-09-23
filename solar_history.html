@@ -1,0 +1,81 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+  <script type="text/javascript">
+    function init() {
+        google.load("visualization", "1.1", { packages:["corechart"], callback: 'drawCharts' });
+    }
+
+    function drawCharts() {
+        drawAccountImpressions('chart-account-impressions');
+    }
+
+    function drawAccountImpressions(containerId) {
+      var data = google.visualization.arrayToDataTable([
+        [{label: 'Date', id: 'Date', type: 'string'}, {label: 'Watts', id: 'Watts', type: 'number'},{'type': 'string', 'role': 'style'}]
+
+,
+["09/12", 34621, null],
+["09/13", 36538, null],
+["09/14", 17494, null],
+["09/15", 36802, null],
+["09/16", 30721, null],
+["09/17", 36439, null],
+["09/18", 29125, null],
+["09/19", 38297, null],
+["09/20", 17946, null],
+["09/21", 38153, null]
+
+      ]);
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+
+      var options = {
+        title: "Solar Production History",
+        fontSize: 18,
+        width: 800,
+        height: 300,
+        bar: {groupWidth: "90%"},
+        legend: {position:'none'},
+        chartArea: {width: '80%', height: '60%'},
+        vAxis: {
+          title: 'Power (Wh)',
+          format: 'short',
+          titleTextStyle: {fontSize: 15},
+          minValue: 0
+        },
+        hAxis: {
+          title: 'Peak 38,297Wh on 09/19. Average 31,613.6Wh',
+          titleTextStyle: {fontSize: 15, bold: true},
+          textStyle: {fontSize: 16},
+          format: '',
+          gridlines : {count: -1}
+        },
+        annotations: {
+          textStyle: {
+          fontName: 'Times-Roman',
+          fontSize: 15
+          }
+        }
+      };
+
+      var chart = new google.visualization.ColumnChart(document.getElementById(containerId));
+      chart.draw(view, options);
+
+
+  }
+  </script>
+</head>
+    <body onload="init()">
+    	<div id="chart-account-impressions"></div>
+</body>
+</html>
+

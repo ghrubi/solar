@@ -19,7 +19,7 @@ $report_date = $report_date->strftime('%Y-%m-%d');
 
 my $tmpl_infile = "/home/gene/projects/perl/solar/google_solar_chart.tmpl";
 my $html_outfile = "/home/gene/projects/perl/solar/solar_output.html";
-my $html_chart = "cms.asskick.com/solar_data/solar_output.html";
+my $html_chart = "files.asskick.com:8080/solar_data/solar_output.html";
 my $outfile = "/home/gene/projects/perl/solar/solar_output.png";
 
 # Set user agent to avoid the dreaded lack-of-Flash bullshit. 
@@ -27,6 +27,8 @@ my $my_user_agent = 'Mozilla/5.0 (Linux; U; Android 2.2; de-de; HTC Desire HD 1.
 
 # URL for detailed solar data.
 my $url_detail = "https://api.enphaseenergy.com/api/v2/systems/712162/stats?" . $my_url_info;;
+
+print $url_detail;
 
 # URL for google-generated chart.
 my $url_chart = "http://localhost/solar_data/solar_output.html";
@@ -137,5 +139,5 @@ close(FILE);
 close(OUTFILE);
 
 # Run WKHTMLTOIMAGE command to dump to PNG.
-system(" /home/gene/wkhtmltox/bin/wkhtmltoimage --javascript-delay 6000 --width 800 --height 300 $html_chart $outfile");
+system("/usr/bin/xvfb-run /usr/bin/wkhtmltoimage --javascript-delay 6000 --width 800 --height 300 $html_chart $outfile");
 
